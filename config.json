@@ -1,0 +1,8 @@
+{
+  "nomenclature": {
+    "name": "links",
+    "verboseName": "Links"
+  },
+  "baseUrl": "/links",
+  "source": "links/src/index"
+}
