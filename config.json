@@ -4,5 +4,9 @@
     "verboseName": "Links"
   },
   "baseUrl": "/links",
-  "source": "links/src/index"
+  "source": "links/src/index",
+  "primarySidebar": {
+    "icon": "chain",
+    "priority": 5
+  }
 }
