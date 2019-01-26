@@ -32,7 +32,7 @@ class App extends React.PureComponent {
     return (
       <React.Fragment>
         <div styleName='main.app'>
-          <AppHeader mode='site' appName='links' userDropdown />
+          <AppHeader userDropdown />
           {isMobile && <Sidebar />}
           <AppMain>
             <div styleName='main.app-main'>
