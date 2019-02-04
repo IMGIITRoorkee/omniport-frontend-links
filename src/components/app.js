@@ -2,9 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { isMobile, isBrowser } from 'react-device-detect'
 import { Scrollbars } from 'react-custom-scrollbars'
-import { Container, Card } from 'semantic-ui-react'
+import { Container, Card, Loader } from 'semantic-ui-react'
 
 import Sidebar from 'core/common/src/components/primary-sidebar'
+import CustomBreadcrumb from 'core/common/src/components/custom-breadcrumb'
 import { AppHeader, AppFooter, AppMain, TileCard } from 'formula_one'
 import { setLinkList } from '../actions'
 
@@ -38,10 +39,11 @@ class App extends React.PureComponent {
             <div styleName='main.app-main'>
               {isBrowser && <Sidebar />}
               <Scrollbars autoHide>
-                <Container styleName='tile.tile-container'>
+                <Container>
+                  <CustomBreadcrumb list={[{ name: 'Links' }]} />
                   <Card.Group itemsPerRow={3} stackable doubling>
-                    {linkList.isLoaded
-                      ? linkList.data.map(link => {
+                    {linkList.isLoaded ? (
+                      linkList.data.map(link => {
                         return (
                           <TileCard
                             key={link.id}
@@ -55,7 +57,9 @@ class App extends React.PureComponent {
                           />
                         )
                       })
-                      : 'Loading'}
+                    ) : (
+                      <Loader />
+                    )}
                   </Card.Group>
                 </Container>
               </Scrollbars>
