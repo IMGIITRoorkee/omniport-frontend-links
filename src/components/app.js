@@ -1,12 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { isMobile, isBrowser } from 'react-device-detect'
 import { Scrollbars } from 'react-custom-scrollbars'
-import { Container, Card, Loader } from 'semantic-ui-react'
+import { Container, Card, Grid, Placeholder, Segment } from 'semantic-ui-react'
 
-import Sidebar from 'core/common/src/components/primary-sidebar'
 import CustomBreadcrumb from 'core/common/src/components/custom-breadcrumb'
-import { AppHeader, AppFooter, AppMain, TileCard } from 'formula_one'
+import { TileCard } from 'formula_one'
 import { setLinkList } from '../actions'
 
 import main from 'formula_one/src/css/app.css'
@@ -18,56 +16,43 @@ class App extends React.PureComponent {
   }
   render () {
     const { linkList } = this.props
-    const creators = [
-      {
-        name: 'Dhruv Bhanushali',
-        role: 'Backend developer',
-        link: 'https://dhruvkb.github.io/'
-      },
-      {
-        name: 'Praduman Goyal',
-        role: 'Frontend developer',
-        link: 'https://pradumangoyal.github.io'
-      }
-    ]
     return (
-      <React.Fragment>
-        <div styleName='main.app'>
-          <AppHeader userDropdown />
-          {isMobile && <Sidebar />}
-          <AppMain>
-            <div styleName='main.app-main'>
-              {isBrowser && <Sidebar />}
-              <Scrollbars autoHide>
-                <Container>
-                  <CustomBreadcrumb list={[{ name: 'Links' }]} />
-                  <Card.Group itemsPerRow={3} stackable doubling>
-                    {linkList.isLoaded ? (
-                      linkList.data.map(link => {
-                        return (
-                          <TileCard
-                            key={link.id}
-                            as='a'
-                            href={link.url}
-                            target='_blank'
-                            name={link.title}
-                            imageUrl={link.logo}
-                            iconName='chain'
-                            desc={<span>{link.description}</span>}
-                          />
-                        )
-                      })
-                    ) : (
-                      <Loader />
-                    )}
-                  </Card.Group>
-                </Container>
-              </Scrollbars>
-            </div>
-          </AppMain>
-          <AppFooter creators={creators} />
-        </div>
-      </React.Fragment>
+      <Scrollbars autoHide>
+        <Container>
+          <CustomBreadcrumb list={[{ name: 'Links' }]} />
+          <Card.Group itemsPerRow={3} stackable doubling>
+            {linkList.isLoaded
+              ? linkList.data.map(link => {
+                return (
+                  <TileCard
+                    key={link.id}
+                    as='a'
+                    href={link.url}
+                    target='_blank'
+                    name={link.title}
+                    imageUrl={link.logo}
+                    iconName='chain'
+                    desc={<span>{link.description}</span>}
+                  />
+                )
+              })
+              : [...Array(6)].map((item, index) => {
+                return (
+                  <Card key={index}>
+                    <Segment>
+                      <Placeholder>
+                        <Placeholder.Header image>
+                          <Placeholder.Line />
+                          <Placeholder.Line />
+                        </Placeholder.Header>
+                      </Placeholder>
+                    </Segment>
+                  </Card>
+                )
+              })}
+          </Card.Group>
+        </Container>
+      </Scrollbars>
     )
   }
 }
