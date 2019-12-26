@@ -15,7 +15,7 @@ export const setLinkList = () => {
           }
         })
       })
-      .catch(err => {
+      .catch(() => {
         dispatch({
           type: 'SET_LINK_LIST',
           payload: {
